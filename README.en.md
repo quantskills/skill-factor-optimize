@@ -15,6 +15,63 @@ It is designed for both stock and futures factors. Metrics are not hard-coded: u
 
 The skill is Chinese-first. Generated Markdown summaries, final reports, and chat responses should be primarily in Chinese unless the project or user requests otherwise. It also requires the agent to expose enough evidence in the chat response, not only write files, including key metric comparisons, robustness discussion, and the final recommendation.
 
+## Workflow
+
+The skill turns one existing factor into a traceable optimization chain:
+
+```mermaid
+flowchart TD
+    A["Input: existing factor directory or source"] --> B["Read local context"]
+    B --> C["Choose metrics"]
+    C --> D["Period sweep"]
+    D --> E["Select best period"]
+    E --> F["Ablation on best period"]
+    F --> G["Derive core variant"]
+    G --> H["Refinement from best period + core"]
+    H --> I["Best final variant"]
+    I --> J["Robustness discussion"]
+    J --> K["Decision: replace, keep, research-only, or validate further"]
+```
+
+The agent should reuse the local evaluation environment and avoid brute-force Cartesian searches across every period combination.
+
+## Generated Artifacts
+
+Artifacts are written under the factor directory:
+
+```text
+<factor_dir>/
+└── optimize_tests/
+    ├── 00_manifest.json
+    ├── period_sweep/
+    │   ├── period_sweep_metrics.csv
+    │   └── period_sweep_summary.md
+    ├── ablation/
+    │   ├── ablation_metrics.csv
+    │   ├── core_variant_daily_analyze.png
+    │   └── ablation_summary.md
+    ├── refinement/
+    │   ├── refinement_metrics.csv
+    │   ├── best_variant_daily_analyze.png
+    │   └── refinement_summary.md
+    └── optimize_report.md
+```
+
+| Artifact | Purpose |
+| --- | --- |
+| `00_manifest.json` | Records data, engine, metrics, factor name, and experiment state |
+| `period_sweep_metrics.csv` | All tested periods or period sets |
+| `period_sweep_summary.md` | Original period, tested range, robust region, and selected best period |
+| `ablation_metrics.csv` | Component removal/simplification variants at the best period |
+| `ablation_summary.md` | Core/helpful/risk-control/cosmetic/harmful component classification |
+| `refinement_metrics.csv` | Enhancement attempts from `best period + core` |
+| `refinement_summary.md` | Refinement results and best final variant |
+| `optimize_report.md` | Full linked report and final decision |
+
+## Chat Response Requirement
+
+The final chat response must not only point to files. It should include the evaluation setup, period sweep conclusion, ablation conclusion, refinement conclusion, a compact metric comparison, robustness discussion, and the final recommendation.
+
 ## Quick Start
 
 ```bash
