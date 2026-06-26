@@ -1,0 +1,6 @@
+interface:
+  display_name: "Factor Optimize"
+  short_description: "中文化因子原地优化流程"
+  default_prompt: "使用 $factor-optimize 优化这个已有股票或期货因子：做 period sweep、best-period ablation、refinement，并在对话中给出指标对比、稳健性讨论和是否替换原因子的结论。"
+policy:
+  allow_implicit_invocation: true
