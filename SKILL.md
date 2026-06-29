@@ -7,10 +7,10 @@ quantSkills:
   repository_url: https://github.com/quantskills/skill-factor-optimize
   project_type: skill
   collection: factor-research
-  license: GPL-3.0
+  license: GPL-3.0-only
   category: factor
   tags: [factor-optimize, factor-research, period-sweep, ablation, refinement, ic]
-  platforms: [claude-code, codex, openclaw]
+  platforms: [claude-code, codex, cursor, hermes, openclaw]
   language: zh-en
   status: draft
   validation_level: listed

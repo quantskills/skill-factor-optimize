@@ -1,0 +1,33 @@
+---
+description: "中文化因子原地优化流程：period sweep、best-period ablation、refinement、稳健性讨论和替换判断。"
+globs:
+  - "**/SKILL.md"
+  - "**/factor*"
+  - "**/factors/**"
+  - "**/optimize_tests/**"
+alwaysApply: false
+---
+
+# Factor Optimize Cursor Rule
+
+当用户要求优化、诊断、改进或选择一个已有股票/期货因子 baseline 时，按本仓库 `SKILL.md` 执行。
+
+## 使用方式
+
+1. 先读取仓库根目录的 `SKILL.md`。
+2. 如果需要写最终报告，读取 `references/report-format.md`。
+3. 如果需要说明研究边界或合规边界，读取 `references/source-boundary.md`。
+4. 如需初始化实验目录，可运行：
+
+```bash
+python scripts/init_optimize_folder.py <factor_dir>
+```
+
+## Cursor 执行约束
+
+- 默认中文回答和中文 Markdown 产物。
+- 复用项目本地数据、label/target、评价引擎和指标口径。
+- 先做 period sweep，再在 best period 上做 ablation。
+- refinement 必须从 `best period + core components` 出发。
+- 不要在用户确认前覆盖 canonical factor code。
+- 最终对话回复必须包含关键指标对比、core components、best final variant、稳健性讨论和是否替换原因子的结论。

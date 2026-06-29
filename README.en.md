@@ -97,7 +97,9 @@ skill-factor-optimize/
 ├── README.en.md
 ├── LICENSE
 ├── agents/
-│   └── openai.yaml
+│   ├── cursor-rule.mdc
+│   ├── openai.yaml
+│   └── portable-loader.md
 ├── references/
 │   ├── report-format.md
 │   └── source-boundary.md
@@ -117,6 +119,14 @@ skill-factor-optimize/
 | Do not auto-overwrite source | Update canonical factor code only after explicit user confirmation |
 | Informative chat response | Final chat response must include key metrics, core components, best variant, and robustness judgment |
 | Discuss robustness | Cover parameter, time/market, cost, coverage, side decomposition, and search-bias risks |
+
+## Runtime Entrypoints
+
+| Runtime | File | Purpose |
+| --- | --- | --- |
+| Codex / OpenAI | `agents/openai.yaml` | OpenAI/Codex skill UI metadata and default prompt |
+| Cursor | `agents/cursor-rule.mdc` | Cursor rule entrypoint for this Chinese-first factor optimization workflow |
+| Hermes / OpenClaw / Portable | `agents/portable-loader.md` | Loading order and execution constraints for agents without native skill support |
 
 ## Disclaimer
 

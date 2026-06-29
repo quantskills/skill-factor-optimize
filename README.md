@@ -148,7 +148,9 @@ skill-factor-optimize/
 ├── README.en.md
 ├── LICENSE
 ├── agents/
-│   └── openai.yaml
+│   ├── cursor-rule.mdc
+│   ├── openai.yaml
+│   └── portable-loader.md
 ├── references/
 │   ├── report-format.md
 │   └── source-boundary.md
@@ -182,6 +184,14 @@ python scripts/init_optimize_folder.py <factor_dir> \
 | 不自动覆盖源码 | 只有用户确认推广最终版本时才更新 canonical factor code |
 | 对话必须有信息量 | 最终回答必须包含关键指标对比、核心组件、best variant 和稳健性判断 |
 | 讨论稳健性 | 至少覆盖参数、时间/市场、成本、覆盖度、单侧表现和搜索偏误 |
+
+## 运行时入口
+
+| 入口 | 文件 | 用途 |
+| --- | --- | --- |
+| Codex / OpenAI | `agents/openai.yaml` | OpenAI/Codex 风格 skill UI 元数据和默认 prompt |
+| Cursor | `agents/cursor-rule.mdc` | Cursor rule 入口，指向本 skill 的中文化因子优化流程 |
+| Hermes / OpenClaw / Portable | `agents/portable-loader.md` | 无原生 skill 机制时的加载顺序和执行约束 |
 
 ## 免责声明
 
