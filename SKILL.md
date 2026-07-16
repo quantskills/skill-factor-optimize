@@ -20,6 +20,64 @@ quantSkills:
   summary_en: Optimize an existing stock or futures factor with period sweeps, ablations, refinements, and a final keep-or-replace decision.
 ---
 
+```json qsh-form
+{
+  "version": 1,
+  "task": {
+    "placeholder": "说明现有因子的项目位置、原始逻辑、评价引擎与优化目标，或上传相关代码和历史实验材料",
+    "required": true
+  },
+  "fields": [
+    {
+      "key": "factor",
+      "label": "内置因子",
+      "type": "select",
+      "default": "momentum_20",
+      "help": "填写自定义表达式后，以表达式为准",
+      "options": [
+        { "value": "momentum_20", "label": "动量（20日）" },
+        { "value": "reversal_5", "label": "反转（5日）" },
+        { "value": "lowvol_20", "label": "低波动（20日）" },
+        { "value": "alpha101_101", "label": "Alpha101 #101" },
+        { "value": "alpha101_12", "label": "Alpha101 #12" },
+        { "value": "corr_open_vol", "label": "量价背离" }
+      ]
+    },
+    {
+      "key": "expr",
+      "label": "自定义因子表达式",
+      "type": "textarea",
+      "placeholder": "例如 -1 * correlation(rank(open), rank(volume), 10)"
+    },
+    {
+      "key": "universe",
+      "label": "股票池",
+      "type": "select",
+      "default": "000300.SH",
+      "help": "期货品种池请写在任务材料中",
+      "options": [
+        { "value": "000300.SH", "label": "沪深300" },
+        { "value": "000905.SH", "label": "中证500" },
+        { "value": "399006.SZ", "label": "创业板指" },
+        { "value": "000852.SH", "label": "中证1000" }
+      ]
+    },
+    {
+      "key": "horizon",
+      "label": "预测周期",
+      "type": "select",
+      "default": "5",
+      "options": [
+        { "value": "1", "label": "未来 1 日" },
+        { "value": "5", "label": "未来 5 日" },
+        { "value": "10", "label": "未来 10 日" }
+      ]
+    }
+  ],
+  "prompt_template": "{{#task}}任务与材料：\n{{task}}\n\n{{/task}}{{#attachments}}用户上传的材料（已放入工作区）：\n{{attachments}}\n\n{{/attachments}}若任务材料已指明项目因子与评价口径，以材料为准；下列表单值仅作为材料未提供时的回退。{{#factor}}回退因子为 {{factor}}。{{/factor}}{{#expr}}自定义表达式以 {{expr}} 为准。{{/expr}}{{#universe}}回退股票池为 {{universe}}。{{/universe}}{{#horizon}}回退预测周期为未来 {{horizon}} 日。{{/horizon}}沿用项目本地数据、标签和评价引擎，依次执行 period sweep、最佳周期上的组件消融及从核心版本出发的 refinement，讨论参数、时间、市场、成本和搜索稳健性，明确保留、替换、候选或待验证结论，输出中文报告。"
+}
+```
+
 # 因子优化
 
 用这个 skill 对一个已有量化因子做诊断、优化和 baseline 选择。不要用它做开放式因子挖掘。
